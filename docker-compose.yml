@@ -1,0 +1,7 @@
+api:
+  container_name: golang_api
+  build: .
+  ports:
+    - "9000:9000"
+  volumes:
+    - "./app:/go/src/app/"
