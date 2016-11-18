@@ -4,15 +4,16 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+
+    routes "app/api/routes"
 )
 
-func Run(message string, port int) {
-	r := gin.Default()
-    r.GET("/gretting", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": message,
-        })
-    })
-    listen := fmt.Sprintf(":%d", port)
-    r.Run(listen)
+func Run(port int, version string) {
+	router := gin.Default()
+    router_group := router.Group(version)
+    // Load Routes
+    routes.Load_routes(router_group)
+
+    listen_port := fmt.Sprintf(":%d", port)
+    router.Run(listen_port)
 }

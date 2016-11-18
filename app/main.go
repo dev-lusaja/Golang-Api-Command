@@ -10,14 +10,17 @@ import (
 
 func main() {
   // Flags variables
-  var appName string
   var port int
-  var message string
+  var api_prefix string
 
-  // Command line config
+  // Instans command line
   app := cli.NewApp()
+  
+  // Command line config
   app.Usage = "api usage"
   app.Version = "0.0.1"
+  app.Name = "MyApp"
+
   // Flags config
   app.Flags = []cli.Flag {
     cli.IntFlag{
@@ -27,23 +30,19 @@ func main() {
       Destination: &port,
     },
     cli.StringFlag{
-      Name:        "message",
-      Value:       "Server running",
-      Usage:       "message for server",
-      Destination: &message,
-    },
-    cli.StringFlag{
-      Name:        "appName",
-      Value:       "app",
-      Usage:       "App Name",
-      Destination: &appName,
+      Name:        "api_prefix",
+      Value:       "api/v1",
+      Usage:       "api prefix",
+      Destination: &api_prefix,
     },
   }
 
   app.Action = func(c *cli.Context) error {
-    app.Name = appName
-    api.Run(message, port)
+    // Run API
+    api.Run(port, api_prefix)
     return nil
   }
+
+  // Run command line App
   app.Run(os.Args)
 }

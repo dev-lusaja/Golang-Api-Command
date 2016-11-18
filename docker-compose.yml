@@ -3,5 +3,6 @@ api:
   build: .
   ports:
     - "9000:9000"
+    - "4000:4000"
   volumes:
     - "./app:/go/src/app/"
